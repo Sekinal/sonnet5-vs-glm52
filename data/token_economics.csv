@@ -4,3 +4,4 @@ GLM 5.2,GLM 5.2,51,140,4.40,933,933,933,TRUE,TRUE,artificialanalysis.ai (measure
 GPT-5.5,GPT-5.5 (xhigh),55,72,30.00,2819,2819,2819,TRUE,TRUE,artificialanalysis.ai (measured)
 Claude Opus 4.8,Claude Opus 4.8,56,120,25.00,3753,3753,3753,TRUE,TRUE,artificialanalysis.ai (measured)
 Claude Sonnet 5,Claude Sonnet 5,53,300,15.00,6015,4010,6015,TRUE,FALSE,"AA measured $6,015.18 to run the index at standard $3/$15; low end ~$4,010 at intro $2/$10 (derived)"
+Claude Opus 4.7,Claude Opus 4.7,54,100,25.00,3738,3738,3738,TRUE,FALSE,artificialanalysis.ai (measured)

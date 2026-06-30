@@ -90,3 +90,11 @@ AND its own flagship.
   via agent; Opus 4.8 token count still needed).
 - Sonnet 5 still leads on specific agentic-coding tasks (SWE-bench Pro/Terminal-Bench) that
   some buyers care about more than index points; value != fit for every workload.
+
+## UPDATE: added Opus 4.7; checked Opus 4.6 (2026-06-30)
+- Opus 4.7 (max): index 54, 100M output tokens, cost-to-run $3,737.82 (AA measured), $5/$25.
+  Sits below the value frontier (dominated by Opus 4.8 and GPT-5.5). Even leaner than 4.8.
+- Opus 4.6: AA lists only a NON-REASONING "(high)" variant at index 38, $5/$25, with NO token
+  count or cost-to-run published. Not chartable on a cost-to-run axis; excluded (not fabricated).
+- Effort variants on AA: only GPT-5.5 (low/med/high/xhigh). All Claude/Opus/GLM/Gemini are
+  single max/high points. So Opus 4.7/4.8 are points, not effort curves.

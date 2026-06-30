@@ -53,8 +53,14 @@ on the Intelligence Index v4.1 (all at max reasoning effort):
 | **GLM 5.2** | 51 | 140M | **$933** (measured) | ~$18 (best value) |
 | Gemini 3.1 Pro | 46 | 56M | $815 (measured) | ~$18 |
 | GPT-5.5 (xhigh) | 55 | 72M | $2,819 (measured) | ~$51 |
+| Claude Opus 4.7 | 54 | 100M | $3,738 (measured) | ~$69 |
 | Claude Opus 4.8 | 56 | 120M | $3,753 (measured) | ~$67 |
 | **Claude Sonnet 5** | 53 | **300M** | **$6,015** (measured) | ~$113 (worst) |
+
+(Effort variants: AA publishes per-effort runs only for GPT-5.5; every other model here,
+including Opus 4.7/4.8, appears at a single "max" setting. Opus 4.6 is excluded: AA lists it
+only as a *non-reasoning* variant at index 38 with no token/cost-to-run published, so it can't
+go on a cost chart without fabricating.)
 
 (Artificial Analysis later published Sonnet 5's measured cost-to-run, $6,015.18 at standard
 $3/$15, replacing my earlier derived estimate; ~$4,010 at intro $2/$10.)

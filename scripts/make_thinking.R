@@ -17,42 +17,45 @@ te  <- read_csv("data/token_economics.csv", show_col_types = FALSE)   # single m
 gp  <- read_csv("data/gpt55_effort.csv",    show_col_types = FALSE)   # GPT-5.5 effort curve
 
 mc <- c("GLM 5.2" = pal$glm52, "Claude Sonnet 5" = pal$sonnet5,
-        "Claude Opus 4.8" = pal$opus, "GPT-5.5" = "#8E86A8", "Gemini 3.1 Pro" = "#9AA7B2")
+        "Claude Opus 4.8" = pal$opus, "Claude Opus 4.7" = "#A99E92",
+        "GPT-5.5" = "#8E86A8", "Gemini 3.1 Pro" = "#9AA7B2")
 
 # ================= PANEL A: AA Index, effort curve (GPT-5.5) + max points =========
 pts <- te %>% filter(model != "GPT-5.5")            # GLM, Sonnet5, Opus, Gemini at max
 s5  <- te %>% filter(model == "Claude Sonnet 5")
 
+pts2 <- pts %>% mutate(ny = case_when(
+          model == "Gemini 3.1 Pro" ~ -2.4, model == "GLM 5.2" ~ 2.7,
+          model == "Claude Opus 4.8" ~ 1.8, model == "Claude Opus 4.7" ~ -2.6,
+          model == "Claude Sonnet 5" ~ -2.0, TRUE ~ 0))
+
 pA <- ggplot() +
-  # Sonnet 5 cost estimate range (intro -> standard)
-  geom_segment(data = s5, aes(x = cost_low, xend = cost_high,
-                              y = intelligence_index, yend = intelligence_index),
-               color = pal$sonnet5, linewidth = 1.2, alpha = 0.5, lineend = "round") +
-  # GPT-5.5 effort curve (the only measured per-effort series)
+  # GPT-5.5 effort curve: the one model AA runs per-effort. The line is GPT-5.5 ONLY;
+  # the other models are single max points that happen to land near it.
   geom_line(data = gp, aes(cost_run_index_usd, intelligence_index),
             color = mc["GPT-5.5"], linewidth = 1.5, lineend = "round") +
   geom_point(data = gp, aes(cost_run_index_usd, intelligence_index),
-             fill = mc["GPT-5.5"], color = "white", shape = 21, stroke = 1.0, size = 4.7) +
+             fill = mc["GPT-5.5"], color = "white", shape = 21, stroke = 1.0, size = 4.4) +
   geom_text(data = gp, aes(cost_run_index_usd, intelligence_index, label = effort),
-            family = "BenchSans SemiBold", size = 2.9, color = mc["GPT-5.5"],
-            vjust = 2.0) +
+            family = "BenchSans SemiBold", size = 2.7, color = mc["GPT-5.5"], vjust = 2.1) +
+  annotate("richtext", x = 430, y = 41.6,
+           label = "the <span style='color:#8E86A8'>**GPT-5.5**</span> line is one model dialed low → xhigh (the only per-effort series)",
+           family = "BenchSans", size = 2.85, color = pal$subink, fill = NA, label.color = NA,
+           hjust = 0) +
   # single "max" points for the other four
   geom_point(data = pts, aes(cost_run_index_usd, intelligence_index, fill = model),
              color = "white", shape = 21, stroke = 1.1, size = 6.4) +
-  geom_text_repel(data = pts, aes(cost_run_index_usd, intelligence_index, color = model,
-                  label = paste0(label, "\n", intelligence_index, ",  $", comma(cost_run_index_usd),
-                                 ifelse(measured, "", "*"))),
+  geom_text_repel(data = pts2, aes(cost_run_index_usd, intelligence_index, color = model,
+                  label = paste0(label, "\n", intelligence_index, ",  $", comma(cost_run_index_usd))),
                   family = "BenchSans", size = 3.1, lineheight = 0.95, seed = 5,
-                  box.padding = 1.0, point.padding = 0.6, min.segment.length = 0.3,
+                  nudge_y = pts2$ny, box.padding = 1.1, point.padding = 0.6,
+                  min.segment.length = 0.2, max.overlaps = Inf,
                   segment.color = pal$grid, show.legend = FALSE) +
-  annotate("richtext", x = 360, y = 57.4, label = "<span style='color:#8E86A8'>**GPT-5.5**</span> is the only model AA runs per-effort (low → xhigh)",
-           family = "BenchSans", size = 2.95, color = pal$subink, fill = NA, label.color = NA,
-           hjust = 0, lineheight = 1.12) +
   scale_color_manual(values = mc) +
   scale_fill_manual(values = mc) +
   scale_x_log10(labels = label_dollar(), breaks = c(400, 900, 1800, 3800, 6000),
                 expand = expansion(mult = c(0.1, 0.16))) +
-  scale_y_continuous(limits = c(41, 58), breaks = seq(42, 57, 3)) +
+  scale_y_continuous(limits = c(41, 59.5), breaks = seq(42, 57, 3)) +
   labs(title = "Same intelligence, very different bills",
        subtitle = "Intelligence Index vs. cost to run the index (log). At index **53**, <span style='color:#8E86A8'>**GPT-5.5 (high)**</span> costs **$1,746**; <span style='color:#D6603D'>**Sonnet 5**</span> costs **$6,015**. <span style='color:#1B9E8A'>**GLM 5.2**</span> takes index **51** for just **$933**.",
        x = "Cost to run the Intelligence Index (USD, log scale), measured by Artificial Analysis",
