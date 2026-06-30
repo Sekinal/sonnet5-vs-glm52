@@ -1,0 +1,5 @@
+model,effort,intelligence_index,output_tokens_M,cost_run_index_usd,source
+GPT-5.5,low,43,6.8,382,artificialanalysis.ai/models/gpt-5-5-low (measured)
+GPT-5.5,medium,50,21,951,artificialanalysis.ai/models/gpt-5-5-medium (measured)
+GPT-5.5,high,53,43,1746,artificialanalysis.ai/models/gpt-5-5-high (measured)
+GPT-5.5,xhigh,55,72,2819,artificialanalysis.ai/models/gpt-5-5 (measured)

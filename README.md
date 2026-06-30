@@ -42,17 +42,60 @@ Zhipu/Z.ai's open‑weight **GLM 5.2** (released 2026‑06‑13), with Anthropic
 "letdown" is relative: it doesn't beat Opus 4.8, and in mid‑2026 a free, open, 3× cheaper model has
 caught up to it on coding. The moat narrowed.
 
+## Deeper analysis: is GLM 5.2 *truly* cheaper? (token economics)
+
+Sticker price per token is misleading, because a verbose model burns more tokens per task.
+The real cost is **price × tokens to complete a workload**. Measured by Artificial Analysis
+on the Intelligence Index v4.1 (all at max reasoning effort):
+
+| Model | Index | Output tokens to run index | Cost to run index | $ per index point |
+|---|---|---|---|---|
+| **GLM 5.2** | 51 | 140M | **$933** (measured) | ~$18 (best value) |
+| Gemini 3.1 Pro | 46 | 56M | $815 (measured) | ~$18 |
+| GPT-5.5 (xhigh) | 55 | 72M | $2,819 (measured) | ~$51 |
+| Claude Opus 4.8 | 56 | 120M | $3,753 (measured) | ~$67 |
+| **Claude Sonnet 5** | 53 | **300M** | **~$3,800–5,600** (derived*) | ~$72–106 (worst) |
+
+\* AA's day-one Sonnet 5 page renders pricing at $0.00, so its cost-to-run is derived
+(300M tokens × $10/$15 output + input overhead).
+
+- **Sonnet 5 is the most verbose model in the field** (300M tokens — 2.1× GLM 5.2, 2.5× its
+  own Opus 4.8). Its per-token price (~3.4× GLM) and its verbosity (2.1×) **compound** into a
+  **~4–6× real-cost disadvantage** for **+2** index points.
+- **The kicker:** Sonnet 5 costs *more* to run than Opus 4.8 — which scores *higher* — because
+  Opus is far leaner. Sonnet 5 sits **off the value frontier**, dominated by both Opus 4.8 and
+  GPT-5.5 (each higher intelligence for less money). → `plots/token_economics.png`
+
+### Across thinking levels (`plots/thinking_levels.png`)
+
+Reasoning effort changes *how many tokens* a model spends, not its *price per token*. AA only
+publishes per-effort runs for **GPT-5.5** (index 43→55 as cost climbs $382→$2,819); GLM 5.2,
+Sonnet 5, Opus and Gemini appear at a single "max" setting only. But the conclusion is
+structural: GLM's output is **$4.40/M** vs Sonnet's **$10–15/M**, fixed at every effort, so at
+any matched token budget GLM is 2.3–3.4× cheaper. **Sonnet 5 can only get cheaper than GLM by
+also dropping below GLM's intelligence — no effort level makes it cheaper-and-as-smart.**
+Anthropic's own BrowseComp effort curves confirm the shape and show Opus 4.8 sitting above
+Sonnet 5 at nearly every matched cost.
+
 ## Repository layout
 
 ```
 data/
-  benchmarks.csv   # tidy: model, benchmark, category, score, unit, higher_better, credibility, source, notes
-  economy.csv      # pricing, context, licence, weights, intelligence index per model
+  benchmarks.csv         # tidy: model, benchmark, category, score, unit, higher_better, credibility, source, notes
+  economy.csv            # pricing, context, licence, weights, intelligence index per model
+  token_economics.csv    # intelligence, output tokens to run the index, measured cost-to-run
+  gpt55_effort.csv       # GPT-5.5 per-effort Intelligence-Index runs (the one measured effort curve)
+  effort_levels.csv      # Anthropic's BrowseComp cost-vs-passrate by effort (read from their chart)
 plots/
-  sonnet5_vs_glm52.png   # the headline infographic (R + tidyverse)
+  sonnet5_vs_glm52.png   # the headline capability + economy infographic
+  sonnet5_vs_glm52_x.png # 4:5 version sized for X
+  token_economics.png    # deeper: verbosity vs intelligence vs TRUE cost (value frontier)
+  thinking_levels.png    # deeper: intelligence & cost across reasoning effort, GLM included
 scripts/
   theme_bench.R    # shared visual identity (Inter font, palette, theme)
-  make_plot.R      # builds the infographic from data/*.csv
+  make_plot.R      # builds the headline infographic
+  make_tokens.R    # builds the token-economics / value-frontier figure
+  make_thinking.R  # builds the thinking-levels figure
 sources/
   official_anthropic_notes.md         # numbers read from the official benchmark image (playwright + vision)
   anthropic_sonnet5_benchmark_table.png
