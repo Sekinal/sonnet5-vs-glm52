@@ -72,11 +72,12 @@ hb_long <- hb %>% pivot_longer(c(s5, glm), names_to = "which", values_to = "scor
 
 pB <- ggplot(hb) +
   geom_segment(aes(y = benchmark, yend = benchmark, x = glm, xend = s5),
-               color = pal$grid, linewidth = 2.2) +
-  geom_point(data = hb_long, aes(score, benchmark, color = model), size = 5.5) +
+               color = pal$connector, linewidth = 3.4, lineend = "round") +
+  geom_point(data = hb_long, aes(score, benchmark, fill = model), size = 4.4,
+             shape = 21, color = "white", stroke = 1.1) +
   geom_text(aes(x = pmax(s5, glm), y = benchmark, label = sprintf("+%.1f", gap)),
             hjust = -0.4, family = "BenchSans SemiBold", size = 3.4, color = pal$subink) +
-  scale_color_manual(values = model_colors) +
+  scale_fill_manual(values = model_colors) +
   scale_y_discrete(labels = label_wrap(22)) +
   scale_x_continuous(labels = label_percent(scale = 1),
                      breaks = seq(40, 80, 20),
@@ -104,11 +105,12 @@ oc_long <- oc %>% pivot_longer(c(s5, opus), names_to = "which", values_to = "sco
 
 pC <- ggplot(oc) +
   geom_segment(aes(y = benchmark, yend = benchmark, x = s5, xend = opus),
-               color = pal$grid, linewidth = 2.2) +
-  geom_point(data = oc_long, aes(score, benchmark, color = model), size = 5.5) +
+               color = pal$connector, linewidth = 3.4, lineend = "round") +
+  geom_point(data = oc_long, aes(score, benchmark, fill = model), size = 4.4,
+             shape = 21, color = "white", stroke = 1.1) +
   geom_text(aes(x = opus, y = benchmark, label = sprintf("−%.1f", gap)),
             hjust = -0.4, family = "BenchSans SemiBold", size = 3.4, color = pal$warn) +
-  scale_color_manual(values = model_colors) +
+  scale_fill_manual(values = model_colors) +
   scale_y_discrete(labels = label_wrap(20)) +
   scale_x_continuous(labels = label_percent(scale = 1),
                      breaks = seq(60, 100, 20),

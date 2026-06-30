@@ -44,6 +44,7 @@ pal <- list(
   paper     = "#FBF9F5",  # warm off-white
   panel     = "#FFFFFF",
   grid      = "#E7E2D9",
+  connector = "#C3BAAB",  # dumbbell connector: dark enough to read on paper
   good      = "#1B9E8A",
   warn      = "#D6603D"
 )
