@@ -6,8 +6,11 @@ Zhipu/Z.ai's open‑weight **GLM 5.2** (released 2026‑06‑13), with Anthropic
 
 ![Sonnet 5 vs GLM 5.2](plots/sonnet5_vs_glm52.png)
 
-> The headline plot (`plots/sonnet5_vs_glm52.png`) is built for sharing. Everything in it
-> traces to the CSVs in `data/` and the primary sources archived in `sources/`.
+> Two renders of the same analysis:
+> - `plots/sonnet5_vs_glm52.png` is the full tall infographic (single column).
+> - `plots/sonnet5_vs_glm52_x.png` is a 4:5 (1620×2025) version sized to post on X without in-feed cropping.
+>
+> Everything in both traces to the CSVs in `data/` and the primary sources archived in `sources/`.
 
 ## TL;DR: what the data actually says
 

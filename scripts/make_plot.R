@@ -168,3 +168,52 @@ final <- title_block / pA / pB / pC / pD / caption_block +
 ggsave("plots/sonnet5_vs_glm52.png", final, width = 10.5, height = 16.5, dpi = 200,
        bg = pal$paper, limitsize = FALSE)
 message("Wrote plots/sonnet5_vs_glm52.png")
+
+# ============================================================ X / TWITTER 4:5
+# X shows portrait images uncropped only up to ~4:5. Reflow to a compact 4:5:
+# title / hero scatter (full width) / two dumbbells side-by-side / price bars / caption.
+shrink <- function(p, tsize = 15, ssize = 9.5)
+  p + theme(plot.title    = element_markdown(family = "Inter Black", size = tsize,
+                                             color = pal$ink, margin = margin(b = 3)),
+            plot.subtitle = element_markdown(size = ssize),
+            axis.text     = element_text(size = 8.5))
+
+pAx <- shrink(pA, 17, 10) +
+  theme(plot.subtitle = element_textbox_simple(family = "Inter", size = 9.5,
+                                               color = pal$subink, lineheight = 1.25,
+                                               width = unit(1, "npc"), margin = margin(b = 6)))
+pBx <- shrink(pB) + labs(title = "Coding & reasoning: a near-tie",
+                         subtitle = "<span style='color:#D6603D'>**Sonnet 5**</span> vs <span style='color:#1B9E8A'>**GLM 5.2**</span>, Sonnet 5's edge labelled") +
+  scale_x_continuous(labels = label_percent(scale = 1), breaks = seq(40, 80, 20),
+                     expand = expansion(mult = c(0.05, 0.24)))
+pCx <- shrink(pC) + labs(title = "Still behind its own Opus 4.8",
+                         subtitle = "<span style='color:#D6603D'>**Sonnet 5**</span> trails <span style='color:#6B6B6B'>**Opus 4.8**</span>, deficit labelled") +
+  scale_x_continuous(labels = label_percent(scale = 1), breaks = seq(60, 100, 20),
+                     expand = expansion(mult = c(0.05, 0.30)))
+pDx <- shrink(pD, 16, 9.5)
+
+title_x <- ggplot() + theme_void() +
+  labs(title = "Claude Sonnet 5 didn't move the frontier",
+       subtitle = paste0(
+         "A real step up from Sonnet 4.6, but it stays behind Anthropic's own **Opus 4.8**, and an ",
+         "**open-weight, 3× cheaper** model (Zhipu's **GLM 5.2**) matches it on agentic coding.")) +
+  theme(plot.title = element_markdown(family = "Inter Black", size = 21, color = pal$ink,
+                                      lineheight = 1.02, margin = margin(b = 5)),
+        plot.subtitle = element_textbox_simple(family = "Inter", size = 11, color = pal$subink,
+                                               lineheight = 1.32, width = unit(1, "npc")),
+        plot.margin = margin(4, 10, 2, 10))
+
+caption_x <- ggplot() + theme_void() +
+  labs(title = "<span style='color:#8a8178'>Sources: Anthropic Sonnet 5 system card & news, Z.ai GLM 5.2 card, Artificial Analysis Index v4.1, Semgrep, llm-stats. Independent figures used where vendor self-reports differ. Built with R and the tidyverse.</span>") +
+  theme(plot.title = element_textbox_simple(family = "Inter", size = 7.4, lineheight = 1.3,
+                                            width = unit(1, "npc"), margin = margin(t = 3)),
+        plot.margin = margin(2, 10, 4, 10))
+
+final_x <- title_x / pAx / (pBx | pCx) / pDx / caption_x +
+  plot_layout(heights = c(0.62, 1.45, 1.30, 0.72, 0.16)) +
+  plot_annotation(theme = theme(plot.background = element_rect(fill = pal$paper, color = NA),
+                                plot.margin = margin(14, 14, 8, 14)))
+
+ggsave("plots/sonnet5_vs_glm52_x.png", final_x, width = 9, height = 11.25, dpi = 180,
+       bg = pal$paper, limitsize = FALSE)
+message("Wrote plots/sonnet5_vs_glm52_x.png (4:5 for X)")
