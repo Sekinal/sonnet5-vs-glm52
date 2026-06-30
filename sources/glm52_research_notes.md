@@ -1,4 +1,4 @@
-# GLM 5.2 (Zhipu / Z.ai) — research agent findings, 2026-06-30
+# GLM 5.2 (Zhipu / Z.ai): research agent findings, 2026-06-30
 
 Launched 2026-06-13. Open weights (MIT), HF zai-org/GLM-5.2. MoE 753B total / ~40B active, 1M context.
 
@@ -35,6 +35,6 @@ Launched 2026-06-13. Open weights (MIT), HF zai-org/GLM-5.2. MoE 753B total / ~4
 - Official self-reported ~2-3 pts above AA independent (use AA for honest compare).
 - No official SWE-bench Verified (only Pro). Don't conflate.
 - AIME is 2026 set, not directly comparable to others' 2025.
-- Design/Code Arena Elo (1360/1595) only via aggregated search — not locked in.
+- Design/Code Arena Elo (1360/1595) only via aggregated search: not locked in.
 - Semgrep "beats Claude" is agent-vs-agent minimal scaffolding; custom harness GPT5.5/Opus4.8 score higher.
 - Params 753B official vs 744B AA.

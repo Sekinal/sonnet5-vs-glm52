@@ -1,4 +1,4 @@
-# theme_bench.R — shared visual identity for the Sonnet 5 vs GLM 5.2 plots
+# theme_bench.R: shared visual identity for the Sonnet 5 vs GLM 5.2 plots
 # A clean, modern, "X-ready" look: Inter font, soft dark-on-light, restrained palette.
 
 suppressMessages({

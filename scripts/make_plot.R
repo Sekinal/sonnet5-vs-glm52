@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
-# make_plot.R — one big, honest, X-ready infographic:
-#   "Claude Sonnet 5 vs GLM 5.2 — capability & economy"
+# make_plot.R: one big, honest, X-ready infographic:
+#   "Claude Sonnet 5 vs GLM 5.2 capability & economy"
 # Data-driven; no cherry-picking. Every number traces to data/*.csv + sources/.
 
 suppressMessages({
@@ -36,7 +36,7 @@ pA <- ggplot(frA, aes(price, index, color = model)) +
   geom_point(data = filter(frA, open), shape = 21, size = 11, stroke = 1.4,
              fill = NA, color = pal$glm52_d) +
   geom_richtext(aes(label = paste0("**", model, "**<br>",
-                                   "Index ", index, " · $", sprintf('%.2f', price), "/M out",
+                                   "Index ", index, ", $", sprintf('%.2f', price), "/M out",
                                    ifelse(open, "<br><span style='color:#0E6B5C'>open weights (MIT)</span>", ""))),
                 fill = NA, label.color = NA, family = "Inter",
                 size = 3.5, hjust = 0, nudge_x = 0.03, lineheight = 1.15,
@@ -46,7 +46,7 @@ pA <- ggplot(frA, aes(price, index, color = model)) +
                 breaks = c(4.4, 15, 25), expand = expansion(mult = c(0.08, 0.42))) +
   scale_y_continuous(limits = c(48, 60), breaks = seq(48, 60, 4)) +
   labs(title = "Same league, very different price tag",
-       subtitle = "Artificial Analysis Intelligence Index v4.1 vs. output price (log scale). Free, open <span style='color:#1B9E8A'>**GLM 5.2**</span> lands within **2 index points** of <span style='color:#D6603D'>**Sonnet 5**</span> — at a **third** of the price.",
+       subtitle = "Artificial Analysis Intelligence Index v4.1 vs. output price (log scale). Free, open <span style='color:#1B9E8A'>**GLM 5.2**</span> lands within **2 index points** of <span style='color:#D6603D'>**Sonnet 5**</span>, at a **third** of the price.",
        x = "Output price (USD per million tokens, log scale)",
        y = "Intelligence Index (v4.1)") +
   theme_bench(12) + theme(legend.position = "none",
@@ -82,14 +82,14 @@ pB <- ggplot(hb) +
                      breaks = seq(40, 80, 20),
                      expand = expansion(mult = c(0.05, 0.14))) +
   labs(title = "Agentic coding & reasoning: a near-tie with GLM 5.2",
-       subtitle = "<span style='color:#D6603D'>**Sonnet 5**</span> vs <span style='color:#1B9E8A'>**GLM 5.2**</span> · shared public benchmarks · Sonnet 5's edge labelled",
+       subtitle = "<span style='color:#D6603D'>**Sonnet 5**</span> vs <span style='color:#1B9E8A'>**GLM 5.2**</span> on shared public benchmarks, with Sonnet 5's edge labelled",
        x = NULL, y = NULL) +
   theme_bench(12) + theme(legend.position = "none",
                           plot.subtitle = element_markdown(size = 11),
                           panel.grid.major.y = element_blank())
 
 # ============================================================ PANEL C
-# Sonnet 5 vs its OWN Opus 4.8 — it doesn't surpass the flagship
+# Sonnet 5 vs its OWN Opus 4.8: it doesn't surpass the flagship
 vs_opus <- c("SWE-bench Verified", "SWE-bench Pro", "USAMO 2026",
              "Toolathlon (Pass@1)", "CursorBench")
 oc <- bench %>%
@@ -114,7 +114,7 @@ pC <- ggplot(oc) +
                      breaks = seq(60, 100, 20),
                      expand = expansion(mult = c(0.05, 0.14))) +
   labs(title = "Still a step behind Anthropic's own Opus 4.8",
-       subtitle = "<span style='color:#D6603D'>**Sonnet 5**</span> trails <span style='color:#6B6B6B'>**Opus 4.8**</span> on the hard coding, math & tool evals · deficit labelled",
+       subtitle = "<span style='color:#D6603D'>**Sonnet 5**</span> trails <span style='color:#6B6B6B'>**Opus 4.8**</span> on the hard coding, math and tool evals, with the deficit labelled",
        x = NULL, y = NULL) +
   theme_bench(12) + theme(legend.position = "none",
                           plot.subtitle = element_markdown(size = 11),
@@ -143,9 +143,8 @@ pD <- ggplot(pr, aes(output_price_per_mtok, model, fill = model)) +
 title_block <- ggplot() + theme_void() +
   labs(title = "Claude Sonnet 5 didn't move the frontier",
        subtitle = paste0(
-         "A real step up from Sonnet 4.6 — but Anthropic's **Sonnet 5** (Jun 30 2026) stays a step behind its own **Opus 4.8** on the hardest work, and an ",
-         "**open-weight, 3× cheaper** model, Zhipu's **GLM 5.2**, matches it on the agentic-coding work people actually buy Sonnet for.",
-         "<br/><span style='color:#B23A1E'>**Reality check:**</span> the viral *\"92.4% SWE-bench\"* and *\"96.2% GPQA\"* figures were **fabricated** — they're Sonnet 5's *refusal rates* from the system card, not capability scores.")) +
+         "A real step up from Sonnet 4.6, but Anthropic's **Sonnet 5** (Jun 30 2026) stays a step behind its own **Opus 4.8** on the hardest work, and an ",
+         "**open-weight, 3× cheaper** model, Zhipu's **GLM 5.2**, matches it on the agentic-coding work people actually buy Sonnet for.")) +
   theme(plot.title = element_markdown(family = "Inter Black", size = 25, color = pal$ink,
                                       lineheight = 1.02, margin = margin(b = 7)),
         plot.subtitle = element_textbox_simple(family = "Inter", size = 12.5, color = pal$subink,
@@ -154,15 +153,15 @@ title_block <- ggplot() + theme_void() +
 
 caption_block <- ggplot() + theme_void() +
   labs(title = paste0(
-    "<span style='color:#8a8178'>Sources: Anthropic Claude Sonnet 5 system card & news (Jun 2026) · Zhipu/Z.ai GLM 5.2 model card · Artificial Analysis Intelligence Index v4.1 · ",
-    "Semgrep · llm-stats. Where vendor self-reports differ from independent runs, the independent (Artificial Analysis) figure is shown. ",
-    "Index v4.1 is a composite; GDPval/Elo metrics excluded from % panels. Built with R + tidyverse · honest-bench · 2026-06-30</span>")) +
+    "<span style='color:#8a8178'>Sources: Anthropic Claude Sonnet 5 system card and news (Jun 2026), Zhipu/Z.ai GLM 5.2 model card, Artificial Analysis Intelligence Index v4.1, ",
+    "Semgrep, llm-stats. Where vendor self-reports differ from independent runs, the independent (Artificial Analysis) figure is shown. ",
+    "Index v4.1 is a composite; GDPval/Elo metrics are excluded from the percentage panels. Built with R and the tidyverse.</span>")) +
   theme(plot.title = element_textbox_simple(family = "Inter", size = 8.6, lineheight = 1.35,
                                             width = unit(1, "npc"), margin = margin(t = 4)),
         plot.margin = margin(2, 12, 6, 12))
 
 final <- title_block / pA / pB / pC / pD / caption_block +
-  plot_layout(heights = c(0.95, 2.05, 1.45, 1.45, 1.05, 0.30)) +
+  plot_layout(heights = c(0.72, 2.05, 1.45, 1.45, 1.05, 0.30)) +
   plot_annotation(theme = theme(plot.background = element_rect(fill = pal$paper, color = NA),
                                 plot.margin = margin(18, 18, 10, 18)))
 
