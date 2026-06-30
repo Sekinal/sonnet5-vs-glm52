@@ -1,0 +1,13 @@
+model,effort,cost_per_task_usd,browsecomp_pass,source,note
+Claude Sonnet 5,low,2.10,52.0,anthropic.com/news/claude-sonnet-5,approx read from official BrowseComp effort chart (log x)
+Claude Sonnet 5,med,4.50,62.0,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Sonnet 5,high,7.00,65.0,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Sonnet 5,xhigh,8.00,69.5,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Opus 4.8,low,5.00,67.8,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Opus 4.8,med,6.50,69.0,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Opus 4.8,high,7.00,70.0,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Opus 4.8,xhigh,8.50,72.0,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Opus 4.8,max,10.00,76.0,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Sonnet 4.6,low,7.00,62.0,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Sonnet 4.6,med,8.00,63.0,anthropic.com/news/claude-sonnet-5,approx read from official chart
+Claude Sonnet 4.6,high,9.00,63.0,anthropic.com/news/claude-sonnet-5,approx read from official chart

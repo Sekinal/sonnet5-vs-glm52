@@ -1,0 +1,6 @@
+model,label,intelligence_index,output_tokens_M,output_price_per_mtok,cost_run_index_usd,cost_low,cost_high,measured,frontier,source
+Gemini 3.1 Pro,Gemini 3.1 Pro,46,56,12.00,815,815,815,TRUE,TRUE,artificialanalysis.ai (measured)
+GLM 5.2,GLM 5.2,51,140,4.40,933,933,933,TRUE,TRUE,artificialanalysis.ai (measured)
+GPT-5.5,GPT-5.5 (xhigh),55,72,30.00,2819,2819,2819,TRUE,TRUE,artificialanalysis.ai (measured)
+Claude Opus 4.8,Claude Opus 4.8,56,120,25.00,3753,3753,3753,TRUE,TRUE,artificialanalysis.ai (measured)
+Claude Sonnet 5,Claude Sonnet 5,53,300,15.00,5600,3800,5600,FALSE,FALSE,"derived: AA page bugged at $0.00; tokens x price + input overhead, intro-to-standard range"
