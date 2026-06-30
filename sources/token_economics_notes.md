@@ -34,13 +34,27 @@ complete the identical eval suite. Both are verbose; Sonnet 5 is the bigger over
 Sonnet 5 uses MORE tokens than both GLM (2.1x) and even its bigger sibling Opus 4.8 (2.5x).
 Opus 4.8 is the most token-efficient AND highest-scoring of the three.
 
-## Effective OUTPUT cost to run the whole Intelligence Index (tokens x output price)
-(Output dominates cost for verbose reasoning models; input/eval prompts are ~equal across
-models so they don't change the ranking.)
+## AA-MEASURED cost to run the whole Intelligence Index (UPDATE 2026-06-30, later same day)
+AA later populated Sonnet 5's pricing and cost-to-run (earlier $0.00 was a load delay):
+- Sonnet 5 price: $3/M input, $15/M output (standard). Cache $3.75 / $0.30.
+- "In total, it cost $6,015.18 to evaluate Claude Sonnet 5 on the Intelligence Index." MEASURED.
+So Sonnet 5 cost-to-run is NO LONGER derived: it is $6,015 (measured, standard pricing),
+even higher than my earlier ~$5,600 estimate. Intro pricing ($2/$10) implies ~$4,010 (derived).
+
+Measured cost-to-run, all models (AA, Intelligence Index v4.1, max effort):
+- GLM 5.2:        $933   (index 51)
+- Gemini 3.1 Pro: $815   (index 46)
+- GPT-5.5 xhigh:  $2,819 (index 55)
+- Opus 4.8:       $3,753 (index 56)
+- Sonnet 5:       $6,015 (index 53)  <- most expensive AND not the smartest
+
+Ratios: Sonnet 5 / GLM 5.2 = 6.45x (standard); ~4.3x at Sonnet intro. Sonnet 5 / Opus 4.8 =
+1.60x while scoring LOWER (53 vs 56). Cost per index point: GLM ~$18, Sonnet 5 ~$113 (worst).
+
+## (earlier output-only estimate, superseded by measured numbers above)
 - GLM 5.2:        140M x $4.40  = ~$616
 - Opus 4.8:       120M x $25.00 = ~$3,000
-- Sonnet 5 (intro):300M x $10.00 = ~$3,000  -> ~4.9x GLM
-- Sonnet 5 (std): 300M x $15.00 = ~$4,500   -> ~7.3x GLM
+- Sonnet 5 (std): 300M x $15.00 = ~$4,500
 
 ## THE KICKER: Sonnet 5 costs MORE to run than Opus 4.8
 At standard pricing Sonnet 5 (~$4,500) costs ~1.5x Opus 4.8 (~$3,000) to run the same

@@ -4,8 +4,8 @@
 # HONEST DATA NOTE: Artificial Analysis publishes per-effort Intelligence-Index runs only
 # for GPT-5.5. GLM 5.2, Sonnet 5, Opus 4.8, Gemini appear at a single "max" setting only
 # (Sonnet 5 launched 2026-06-30). So the cross-model effort curve uses GPT-5.5 as the one
-# measured exemplar; GLM/Sonnet/Opus are single max points. Panel B uses Anthropic's OWN
-# effort curves (BrowseComp), read approximately from their chart image (no GLM there).
+# measured exemplar; GLM/Sonnet/Opus are single max points. Panel B uses sticker output
+# prices (a hard fact, no benchmark dependence) instead of any single narrow benchmark.
 
 suppressMessages({
   library(tidyverse); library(scales); library(ggtext); library(patchwork); library(ggrepel)
@@ -15,7 +15,6 @@ source("scripts/theme_bench.R")
 
 te  <- read_csv("data/token_economics.csv", show_col_types = FALSE)   # single max points
 gp  <- read_csv("data/gpt55_effort.csv",    show_col_types = FALSE)   # GPT-5.5 effort curve
-el  <- read_csv("data/effort_levels.csv",   show_col_types = FALSE)   # Anthropic BrowseComp
 
 mc <- c("GLM 5.2" = pal$glm52, "Claude Sonnet 5" = pal$sonnet5,
         "Claude Opus 4.8" = pal$opus, "GPT-5.5" = "#8E86A8", "Gemini 3.1 Pro" = "#9AA7B2")
@@ -51,36 +50,38 @@ pA <- ggplot() +
            hjust = 0, lineheight = 1.12) +
   scale_color_manual(values = mc) +
   scale_fill_manual(values = mc) +
-  scale_x_log10(labels = label_dollar(), breaks = c(400, 900, 1800, 3800, 5600),
+  scale_x_log10(labels = label_dollar(), breaks = c(400, 900, 1800, 3800, 6000),
                 expand = expansion(mult = c(0.1, 0.16))) +
   scale_y_continuous(limits = c(41, 58), breaks = seq(42, 57, 3)) +
   labs(title = "Same intelligence, very different bills",
-       subtitle = "Intelligence Index vs. cost to run the index (log). At index **53**, <span style='color:#8E86A8'>**GPT-5.5 (high)**</span> costs **$1,746**; <span style='color:#D6603D'>**Sonnet 5**</span> costs **~$5,600**. <span style='color:#1B9E8A'>**GLM 5.2**</span> takes index **51** for just **$933**.",
-       x = "Cost to run the Intelligence Index (USD, log scale).   * = derived, AA hasn't published Sonnet 5",
+       subtitle = "Intelligence Index vs. cost to run the index (log). At index **53**, <span style='color:#8E86A8'>**GPT-5.5 (high)**</span> costs **$1,746**; <span style='color:#D6603D'>**Sonnet 5**</span> costs **$6,015**. <span style='color:#1B9E8A'>**GLM 5.2**</span> takes index **51** for just **$933**.",
+       x = "Cost to run the Intelligence Index (USD, log scale), measured by Artificial Analysis",
        y = "Intelligence Index (v4.1)") +
   theme_bench(12) + theme(legend.position = "none",
                           plot.subtitle = element_textbox_simple(family = "BenchSans", size = 10.5,
                             color = pal$subink, lineheight = 1.3, width = unit(1, "npc"), margin = margin(b = 8)))
 
-# ================= PANEL B: Anthropic's OWN effort curves (BrowseComp) =============
-elx <- el %>% filter(model %in% c("Claude Sonnet 5", "Claude Opus 4.8")) %>%
-  mutate(effort = factor(effort, levels = c("low","med","high","xhigh","max")))
-pB <- ggplot(elx, aes(cost_per_task_usd, browsecomp_pass, color = model, group = model)) +
-  geom_line(linewidth = 1.4, lineend = "round") +
-  geom_point(size = 4.4) +
-  geom_text(aes(label = effort), family = "BenchSans SemiBold", size = 2.8, vjust = -1.1,
-            show.legend = FALSE) +
-  geom_text(data = elx %>% group_by(model) %>% slice_max(cost_per_task_usd, n = 1),
-            aes(label = model), hjust = 0, nudge_x = 0.03, family = "BenchSans SemiBold",
-            size = 3.1, show.legend = FALSE) +
-  scale_color_manual(values = mc) +
-  scale_x_log10(labels = label_dollar(), breaks = c(2, 3, 5, 8),
-                expand = expansion(mult = c(0.08, 0.30))) +
-  scale_y_continuous(labels = label_percent(scale = 1), limits = c(50, 78)) +
-  labs(title = "Sonnet 5's own effort curve sits under Opus 4.8",
-       subtitle = "Anthropic's BrowseComp chart, read approximately. Pass rate vs cost per task by effort. <span style='color:#6B6B6B'>**Opus 4.8**</span> beats <span style='color:#D6603D'>**Sonnet 5**</span> at nearly every matched cost. (Anthropic doesn't chart GLM 5.2.)",
-       x = "Cost per task (USD, log scale)", y = "BrowseComp pass rate") +
+# ================= PANEL B: the fixed lever, price per token (effort can't change it) ====
+# Robust hard fact (no benchmark dependence): output price per 1M tokens. Reasoning effort
+# changes how many tokens you spend, never the price per token, so this gap is permanent.
+pr <- te %>% mutate(model = fct_reorder(model, output_price_per_mtok))
+pB <- ggplot(pr, aes(output_price_per_mtok, model, fill = model)) +
+  geom_col(width = 0.62) +
+  geom_text(aes(label = label_dollar(accuracy = 0.01)(output_price_per_mtok)), hjust = -0.22,
+            family = "BenchSans Black", size = 3.9, color = pal$ink) +
+  annotate("richtext", x = 10, y = 1.05,
+           label = "<span style='color:#1B9E8A'>**GLM 5.2**</span> is 2.3 to 3.4x cheaper per token<br>than Sonnet 5, at **every** effort level",
+           family = "BenchSans", size = 3.0, color = pal$subink, fill = NA, label.color = NA,
+           hjust = 0, lineheight = 1.12) +
+  scale_fill_manual(values = mc) +
+  scale_y_discrete(labels = function(x) te$label[match(x, te$model)]) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.2))) +
+  labs(title = "Price per token doesn't move with effort",
+       subtitle = "Output price per 1M tokens. Effort changes <span style='color:#1A1714'>**how many**</span> tokens you spend, never the price per token, so the gap to <span style='color:#1B9E8A'>**GLM 5.2**</span> is permanent. (Sonnet 5 intro price is $10 through Aug 31.)",
+       x = "Output price (USD per 1M tokens)", y = NULL) +
   theme_bench(12) + theme(legend.position = "none",
+                          panel.grid.major.y = element_blank(),
+                          axis.text.x = element_blank(), panel.grid.major.x = element_blank(),
                           plot.subtitle = element_textbox_simple(family = "BenchSans", size = 10.5,
                             color = pal$subink, lineheight = 1.3, width = unit(1, "npc"), margin = margin(b = 8)))
 
@@ -97,7 +98,7 @@ title_block <- ggplot() + theme_void() +
         plot.margin = margin(4, 10, 2, 10))
 
 caption_block <- ggplot() + theme_void() +
-  labs(title = "<span style='color:#8a8178'>Sources: Artificial Analysis Intelligence Index v4.1. AA publishes per-effort runs only for GPT-5.5 (low $382, medium $951, high $1,746, xhigh $2,819); GLM 5.2, Sonnet 5, Opus 4.8, Gemini appear at a single max setting only, so their lower-effort points are not independently measured yet. *Sonnet 5 cost-to-run is derived (AA page renders $0.00). Panel B is read approximately from Anthropic's BrowseComp effort chart; GLM 5.2 is not on it. Built with R and the tidyverse.</span>") +
+  labs(title = "<span style='color:#8a8178'>Sources: Artificial Analysis Intelligence Index v4.1 (measured). AA publishes per-effort runs only for GPT-5.5 (low $382, medium $951, high $1,746, xhigh $2,819); GLM 5.2, Sonnet 5, Opus 4.8 and Gemini appear at a single max setting, so their lower-effort intelligence is not independently measured yet. Sonnet 5 cost-to-run $6,015 is now AA-measured at standard $3/$15. Panel B uses sticker output prices (a hard fact, no benchmark dependence). We deliberately do not lean on Anthropic's BrowseComp effort chart, a single narrow vendor-selected benchmark. Built with R and the tidyverse.</span>") +
   theme(plot.title = element_textbox_simple(family = "BenchSans", size = 7.3, lineheight = 1.32,
                                             width = unit(1, "npc"), margin = margin(t = 3)),
         plot.margin = margin(2, 10, 4, 10))

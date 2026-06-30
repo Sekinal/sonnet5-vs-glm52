@@ -54,17 +54,17 @@ on the Intelligence Index v4.1 (all at max reasoning effort):
 | Gemini 3.1 Pro | 46 | 56M | $815 (measured) | ~$18 |
 | GPT-5.5 (xhigh) | 55 | 72M | $2,819 (measured) | ~$51 |
 | Claude Opus 4.8 | 56 | 120M | $3,753 (measured) | ~$67 |
-| **Claude Sonnet 5** | 53 | **300M** | **~$3,800–5,600** (derived*) | ~$72–106 (worst) |
+| **Claude Sonnet 5** | 53 | **300M** | **$6,015** (measured) | ~$113 (worst) |
 
-\* AA's day-one Sonnet 5 page renders pricing at $0.00, so its cost-to-run is derived
-(300M tokens × $10/$15 output + input overhead).
+(Artificial Analysis later published Sonnet 5's measured cost-to-run, $6,015.18 at standard
+$3/$15, replacing my earlier derived estimate; ~$4,010 at intro $2/$10.)
 
 - **Sonnet 5 is the most verbose model in the field** (300M tokens, 2.1× GLM 5.2, 2.5× its
   own Opus 4.8). Its per-token price (~3.4× GLM) and its verbosity (2.1×) **compound** into a
-  **~4–6× real-cost disadvantage** for **+2** index points.
-- **The kicker:** Sonnet 5 costs *more* to run than Opus 4.8 (which scores *higher*) because
-  Opus is far leaner. Sonnet 5 sits **off the value frontier**, dominated by both Opus 4.8 and
-  GPT-5.5 (each higher intelligence for less money). → `plots/token_economics.png`
+  **~6.5× real-cost disadvantage** (~4.3× at intro pricing) for **+2** index points.
+- **The kicker:** Sonnet 5 costs *more* to run ($6,015) than Opus 4.8 ($3,753, which scores
+  *higher*) because Opus is far leaner. Sonnet 5 sits **off the value frontier**, dominated by
+  both Opus 4.8 and GPT-5.5 (each higher intelligence for less money). → `plots/token_economics.png`
 
 ### Across thinking levels (`plots/thinking_levels.png`)
 
@@ -74,8 +74,8 @@ Sonnet 5, Opus and Gemini appear at a single "max" setting only. But the conclus
 structural: GLM's output is **$4.40/M** vs Sonnet's **$10–15/M**, fixed at every effort, so at
 any matched token budget GLM is 2.3–3.4× cheaper. **Sonnet 5 can only get cheaper than GLM by
 also dropping below GLM's intelligence, so no effort level makes it cheaper-and-as-smart.**
-Anthropic's own BrowseComp effort curves confirm the shape and show Opus 4.8 sitting above
-Sonnet 5 at nearly every matched cost.
+This rests on a hard fact (fixed per-token pricing), not on any single benchmark; we
+deliberately do **not** lean on Anthropic's vendor-selected BrowseComp effort chart.
 
 ## Repository layout
 
@@ -85,7 +85,7 @@ data/
   economy.csv            # pricing, context, licence, weights, intelligence index per model
   token_economics.csv    # intelligence, output tokens to run the index, measured cost-to-run
   gpt55_effort.csv       # GPT-5.5 per-effort Intelligence-Index runs (the one measured effort curve)
-  effort_levels.csv      # Anthropic's BrowseComp cost-vs-passrate by effort (read from their chart)
+  effort_levels.csv      # Anthropic BrowseComp by effort (archived; NOT plotted, vendor-selected benchmark)
 plots/
   sonnet5_vs_glm52.png   # the headline capability + economy infographic
   sonnet5_vs_glm52_x.png # 4:5 version sized for X

@@ -45,7 +45,7 @@ pA <- ggplot(te, aes(cost_run_index_usd, intelligence_index)) +
   scale_y_continuous(limits = c(45, 59), breaks = seq(46, 58, 3)) +
   labs(title = "The value frontier, and Sonnet 5 sits off it",
        subtitle = "Intelligence Index vs. <span style='color:#1A1714'>**measured cost to run the whole index**</span> (log scale). <span style='color:#D6603D'>**Sonnet 5**</span> is the only model below the line: both Opus 4.8 and GPT-5.5 score higher for less money.",
-       x = "Cost to run the Intelligence Index (USD, log scale).  * = derived, AA hasn't published",
+       x = "Cost to run the Intelligence Index (USD, log scale), measured by Artificial Analysis",
        y = "Intelligence Index (v4.1)") +
   theme_bench(12) + theme(legend.position = "none",
                           plot.subtitle = element_textbox_simple(family = "BenchSans", size = 10.5,
@@ -87,7 +87,7 @@ title_block <- ggplot() + theme_void() +
         plot.margin = margin(4, 10, 2, 10))
 
 caption_block <- ggplot() + theme_void() +
-  labs(title = "<span style='color:#8a8178'>Source: Artificial Analysis, output tokens and measured cost to run Intelligence Index v4.1 at max reasoning effort (GLM 5.2 $933, Opus 4.8 $3,753, GPT-5.5 $2,819, Gemini 3.1 Pro $815; field-avg ~37M tokens). *Sonnet 5 cost is DERIVED (AA's day-one page renders $0.00): 300M tokens times $15/$10 output plus input overhead, giving about $3,800 (intro) to $5,600 (standard). Sticker output prices per 1M: Sonnet 5 $15, GLM 5.2 $4.40, Opus 4.8 $25. Built with R and the tidyverse.</span>") +
+  labs(title = "<span style='color:#8a8178'>Source: Artificial Analysis, output tokens and measured cost to run Intelligence Index v4.1 at max reasoning effort (Sonnet 5 $6,015, Opus 4.8 $3,753, GPT-5.5 $2,819, GLM 5.2 $933, Gemini 3.1 Pro $815; field-avg ~37M tokens). Sonnet 5 measured at standard $3/$15; the faint bar back to ~$4,010 marks intro pricing ($2/$10 through Aug 31). Sticker output prices per 1M: Sonnet 5 $15, GLM 5.2 $4.40, Opus 4.8 $25. Built with R and the tidyverse.</span>") +
   theme(plot.title = element_textbox_simple(family = "BenchSans", size = 7.4, lineheight = 1.32,
                                             width = unit(1, "npc"), margin = margin(t = 3)),
         plot.margin = margin(2, 10, 4, 10))
