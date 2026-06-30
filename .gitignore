@@ -1,0 +1,8 @@
+# playwright session/cache artifacts
+.playwright-cli/
+*.log
+
+# R
+.Rhistory
+.RData
+.Rproj.user/

@@ -1,0 +1,6 @@
+model,input_price_per_mtok,output_price_per_mtok,context_window,license,weights,intelligence_index,source
+Claude Sonnet 5,3.00,15.00,1000000,proprietary,closed,53,Anthropic news + System Card (standard pricing from Sep 1 2026)
+Claude Sonnet 5 (intro),2.00,10.00,1000000,proprietary,closed,53,Anthropic intro pricing through Aug 31 2026
+GLM 5.2,1.40,4.40,1000000,MIT,open,51,docs.z.ai + artificialanalysis.ai
+Claude Opus 4.8,5.00,25.00,1000000,proprietary,closed,56,llm-stats/morphllm + System Card
+Claude Sonnet 4.6,3.00,15.00,200000,proprietary,closed,NA,llm-stats

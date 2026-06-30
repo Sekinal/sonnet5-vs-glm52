@@ -1,0 +1,47 @@
+model,benchmark,category,score,unit,higher_better,credibility,source,notes
+Claude Sonnet 5,SWE-bench Verified,Agentic coding,85.2,pct,TRUE,official,Anthropic System Card §8.2,Adaptive thinking max effort; viral "92.4%" is actually the refusal rate
+Claude Opus 4.8,SWE-bench Verified,Agentic coding,88.6,pct,TRUE,independent_leaderboard,llm-stats/morphllm,Sonnet 5 trails Opus 4.8 by ~3.4 pts
+Claude Sonnet 4.6,SWE-bench Verified,Agentic coding,79.6,pct,TRUE,independent_leaderboard,llm-stats/morphllm,Third-party config
+Claude Sonnet 5,SWE-bench Pro,Agentic coding,63.2,pct,TRUE,official,Anthropic System Card Tbl 8.1.A,"Agentic coding" headline benchmark
+Claude Sonnet 4.6,SWE-bench Pro,Agentic coding,58.1,pct,TRUE,official,Anthropic System Card Tbl 8.1.A,
+Claude Opus 4.8,SWE-bench Pro,Agentic coding,69.2,pct,TRUE,official,Anthropic System Card / TechCrunch,Reference
+GLM 5.2,SWE-bench Pro,Agentic coding,62.1,pct,TRUE,official,huggingface.co/zai-org/GLM-5.2,OpenHands harness; matches Sonnet 5 within 1.1 pts
+Claude Sonnet 5,Terminal-Bench 2.1,Agentic coding,80.4,pct,TRUE,official,Anthropic System Card Tbl 8.1.A,mini-SWE-agent harness xhigh
+Claude Sonnet 4.6,Terminal-Bench 2.1,Agentic coding,67.0,pct,TRUE,official,Anthropic System Card Tbl 8.1.A,
+Claude Opus 4.8,Terminal-Bench 2.1,Agentic coding,82.7,pct,TRUE,third_party_blog,VentureBeat/press,Press-reported reference
+GLM 5.2,Terminal-Bench 2.1,Agentic coding,78.0,pct,TRUE,independent_leaderboard,artificialanalysis.ai/models/glm-5-2,AA independent (official self-report 81.0)
+Claude Sonnet 5,OSWorld-Verified,Computer use,81.2,pct,TRUE,official,Anthropic System Card §8.10.2,viral "88.3%" is fabricated
+Claude Sonnet 4.6,OSWorld-Verified,Computer use,78.5,pct,TRUE,official,Anthropic System Card Tbl 8.1.A,
+Claude Opus 4.8,OSWorld-Verified,Computer use,83.4,pct,TRUE,independent_leaderboard,morphllm,Config may differ
+Claude Sonnet 5,Humanity's Last Exam (no tools),Reasoning,43.2,pct,TRUE,official,Anthropic System Card Tbl 8.1.A,
+Claude Sonnet 4.6,Humanity's Last Exam (no tools),Reasoning,34.6,pct,TRUE,official,Anthropic System Card,
+Claude Opus 4.8,Humanity's Last Exam (no tools),Reasoning,49.8,pct,TRUE,official,Anthropic System Card,Reference
+GLM 5.2,Humanity's Last Exam (no tools),Reasoning,40.5,pct,TRUE,official,huggingface.co/zai-org/GLM-5.2,AA measured ~40 (consistent)
+Claude Sonnet 5,Humanity's Last Exam (with tools),Reasoning,57.4,pct,TRUE,official,Anthropic System Card Tbl 8.1.A,
+Claude Sonnet 4.6,Humanity's Last Exam (with tools),Reasoning,46.8,pct,TRUE,official,Anthropic System Card,
+Claude Opus 4.8,Humanity's Last Exam (with tools),Reasoning,57.9,pct,TRUE,official,Anthropic System Card,Sonnet 5 essentially matches Opus here
+GLM 5.2,Humanity's Last Exam (with tools),Reasoning,54.7,pct,TRUE,official,huggingface.co/zai-org/GLM-5.2,
+Claude Sonnet 5,BrowseComp (agentic search),Agentic search,84.7,pct,TRUE,official,Anthropic System Card §8.9.2,viral "ARC-AGI-2 84.7" is really this number
+Claude Sonnet 4.6,BrowseComp (agentic search),Agentic search,76.2,pct,TRUE,official,Anthropic System Card,
+Claude Sonnet 5,USAMO 2026,Math,79.5,pct,TRUE,official,Anthropic System Card §8.6,Uncontaminated post-cutoff exam
+Claude Sonnet 4.6,USAMO 2026,Math,55.0,pct,TRUE,official,Anthropic System Card,
+Claude Opus 4.8,USAMO 2026,Math,96.7,pct,TRUE,official,Anthropic System Card,Big Opus lead on hard proofs
+Claude Sonnet 5,Toolathlon (Pass@1),Tool use,54.3,pct,TRUE,official,Anthropic System Card §8.11.5,
+Claude Sonnet 4.6,Toolathlon (Pass@1),Tool use,49.4,pct,TRUE,official,Anthropic System Card,
+Claude Opus 4.8,Toolathlon (Pass@1),Tool use,59.9,pct,TRUE,official,Anthropic System Card,Sonnet 5 trails Opus
+Claude Sonnet 5,CursorBench,Agentic coding,61.2,pct,TRUE,official,Anthropic System Card §8.5,
+Claude Sonnet 4.6,CursorBench,Agentic coding,49.0,pct,TRUE,official,Anthropic System Card §8.5,
+Claude Opus 4.8,CursorBench,Agentic coding,63.8,pct,TRUE,official,Anthropic System Card §8.5,
+Claude Sonnet 5,GDPval-AA v2,Knowledge work,1618,elo,TRUE,official,Anthropic System Card Tbl 8.1.A,Knowledge-work Elo
+Claude Sonnet 4.6,GDPval-AA v2,Knowledge work,1381,elo,TRUE,official,Anthropic System Card Tbl 8.1.A,
+Claude Opus 4.8,GDPval-AA v2,Knowledge work,1615,elo,TRUE,third_party_blog,The New Stack,Sonnet 5 narrowly edges Opus
+GLM 5.2,GDPval-AA v2,Knowledge work,1524,elo,TRUE,independent_leaderboard,artificialanalysis.ai/models/glm-5-2,AA measure
+GLM 5.2,GPQA Diamond,Reasoning,89.0,pct,TRUE,independent_leaderboard,artificialanalysis.ai/models/glm-5-2,AA (official self-report 91.2); Sonnet 5 GPQA not officially reported
+Claude Opus 4.8,GPQA Diamond,Reasoning,93.6,pct,TRUE,independent_leaderboard,llm-stats/morphllm,
+Claude Sonnet 4.6,GPQA Diamond,Reasoning,89.9,pct,TRUE,independent_leaderboard,llm-stats/morphllm,
+GLM 5.2,AIME 2026,Math,99.2,pct,TRUE,official,huggingface.co/zai-org/GLM-5.2,GPT-5.5 judge
+Claude Sonnet 5,AA Intelligence Index v4.1,Composite,53,index,TRUE,independent_leaderboard,artificialanalysis.ai/models/claude-sonnet-5,Flagged very verbose (300M vs 37M avg tokens)
+Claude Opus 4.8,AA Intelligence Index v4.1,Composite,56,index,TRUE,independent_leaderboard,artificialanalysis.ai,
+GLM 5.2,AA Intelligence Index v4.1,Composite,51,index,TRUE,independent_leaderboard,artificialanalysis.ai/models/glm-5-2,#1 open-weight; 4th overall
+GLM 5.2,ARC-AGI-2,Reasoning,22.8,pct,TRUE,independent_leaderboard,officechai.com (ARC Prize),Highest open-weight; $0.25/task
+GLM 5.2,IDOR detection (F1),Cybersecurity,39.0,pct,TRUE,third_party_blog,semgrep.dev,Beat Claude Code/Opus 4.8 (28) agent-vs-agent; harness-dependent
