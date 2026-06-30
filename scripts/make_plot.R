@@ -38,7 +38,7 @@ pA <- ggplot(frA, aes(price, index, color = model)) +
   geom_richtext(aes(label = paste0("**", model, "**<br>",
                                    "Index ", index, ", $", sprintf('%.2f', price), "/M out",
                                    ifelse(open, "<br><span style='color:#0E6B5C'>open weights (MIT)</span>", ""))),
-                fill = NA, label.color = NA, family = "Inter",
+                fill = NA, label.color = NA, family = "BenchSans",
                 size = 3.5, hjust = 0, nudge_x = 0.03, lineheight = 1.15,
                 show.legend = FALSE) +
   scale_color_manual(values = model_colors) +
@@ -51,7 +51,7 @@ pA <- ggplot(frA, aes(price, index, color = model)) +
        y = "Intelligence Index (v4.1)") +
   theme_bench(12) + theme(legend.position = "none",
                           plot.subtitle = element_textbox_simple(
-                            family = "Inter", size = 11, color = pal$subink,
+                            family = "BenchSans", size = 11, color = pal$subink,
                             lineheight = 1.3, width = unit(1, "npc"),
                             margin = margin(b = 8)))
 
@@ -75,7 +75,7 @@ pB <- ggplot(hb) +
                color = pal$grid, linewidth = 2.2) +
   geom_point(data = hb_long, aes(score, benchmark, color = model), size = 5.5) +
   geom_text(aes(x = pmax(s5, glm), y = benchmark, label = sprintf("+%.1f", gap)),
-            hjust = -0.4, family = "Inter SemiBold", size = 3.4, color = pal$subink) +
+            hjust = -0.4, family = "BenchSans SemiBold", size = 3.4, color = pal$subink) +
   scale_color_manual(values = model_colors) +
   scale_y_discrete(labels = label_wrap(22)) +
   scale_x_continuous(labels = label_percent(scale = 1),
@@ -107,7 +107,7 @@ pC <- ggplot(oc) +
                color = pal$grid, linewidth = 2.2) +
   geom_point(data = oc_long, aes(score, benchmark, color = model), size = 5.5) +
   geom_text(aes(x = opus, y = benchmark, label = sprintf("−%.1f", gap)),
-            hjust = -0.4, family = "Inter SemiBold", size = 3.4, color = pal$warn) +
+            hjust = -0.4, family = "BenchSans SemiBold", size = 3.4, color = pal$warn) +
   scale_color_manual(values = model_colors) +
   scale_y_discrete(labels = label_wrap(20)) +
   scale_x_continuous(labels = label_percent(scale = 1),
@@ -128,7 +128,7 @@ pr <- econ %>% filter(model %in% c("GLM 5.2", "Claude Sonnet 5", "Claude Opus 4.
 pD <- ggplot(pr, aes(output_price_per_mtok, model, fill = model)) +
   geom_col(width = 0.62) +
   geom_text(aes(label = label_dollar()(output_price_per_mtok)),
-            hjust = -0.18, family = "Inter Black", size = 4, color = pal$ink) +
+            hjust = -0.18, family = "BenchSans Black", size = 4, color = pal$ink) +
   scale_fill_manual(values = model_colors) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.18))) +
   labs(title = "The economics: 3.4× cheaper output",
@@ -145,9 +145,9 @@ title_block <- ggplot() + theme_void() +
        subtitle = paste0(
          "A real step up from Sonnet 4.6, but Anthropic's **Sonnet 5** (Jun 30 2026) stays a step behind its own **Opus 4.8** on the hardest work, and an ",
          "**open-weight, 3× cheaper** model, Zhipu's **GLM 5.2**, matches it on the agentic-coding work people actually buy Sonnet for.")) +
-  theme(plot.title = element_markdown(family = "Inter Black", size = 25, color = pal$ink,
+  theme(plot.title = element_markdown(family = "BenchSans Black", size = 25, color = pal$ink,
                                       lineheight = 1.02, margin = margin(b = 7)),
-        plot.subtitle = element_textbox_simple(family = "Inter", size = 12.5, color = pal$subink,
+        plot.subtitle = element_textbox_simple(family = "BenchSans", size = 12.5, color = pal$subink,
                                                lineheight = 1.4, width = unit(1, "npc")),
         plot.margin = margin(6, 12, 2, 12))
 
@@ -156,7 +156,7 @@ caption_block <- ggplot() + theme_void() +
     "<span style='color:#8a8178'>Sources: Anthropic Claude Sonnet 5 system card and news (Jun 2026), Zhipu/Z.ai GLM 5.2 model card, Artificial Analysis Intelligence Index v4.1, ",
     "Semgrep, llm-stats. Where vendor self-reports differ from independent runs, the independent (Artificial Analysis) figure is shown. ",
     "Index v4.1 is a composite; GDPval/Elo metrics are excluded from the percentage panels. Built with R and the tidyverse.</span>")) +
-  theme(plot.title = element_textbox_simple(family = "Inter", size = 8.6, lineheight = 1.35,
+  theme(plot.title = element_textbox_simple(family = "BenchSans", size = 8.6, lineheight = 1.35,
                                             width = unit(1, "npc"), margin = margin(t = 4)),
         plot.margin = margin(2, 12, 6, 12))
 
@@ -166,20 +166,20 @@ final <- title_block / pA / pB / pC / pD / caption_block +
                                 plot.margin = margin(18, 18, 10, 18)))
 
 ggsave("plots/sonnet5_vs_glm52.png", final, width = 10.5, height = 16.5, dpi = 200,
-       bg = pal$paper, limitsize = FALSE)
+       bg = pal$paper, limitsize = FALSE, device = ragg::agg_png)
 message("Wrote plots/sonnet5_vs_glm52.png")
 
 # ============================================================ X / TWITTER 4:5
 # X shows portrait images uncropped only up to ~4:5. Reflow to a compact 4:5:
 # title / hero scatter (full width) / two dumbbells side-by-side / price bars / caption.
 shrink <- function(p, tsize = 15, ssize = 9.5)
-  p + theme(plot.title    = element_markdown(family = "Inter Black", size = tsize,
+  p + theme(plot.title    = element_markdown(family = "BenchSans Black", size = tsize,
                                              color = pal$ink, margin = margin(b = 3)),
             plot.subtitle = element_markdown(size = ssize),
             axis.text     = element_text(size = 8.5))
 
 pAx <- shrink(pA, 17, 10) +
-  theme(plot.subtitle = element_textbox_simple(family = "Inter", size = 9.5,
+  theme(plot.subtitle = element_textbox_simple(family = "BenchSans", size = 9.5,
                                                color = pal$subink, lineheight = 1.25,
                                                width = unit(1, "npc"), margin = margin(b = 6)))
 pBx <- shrink(pB) + labs(title = "Coding & reasoning: a near-tie",
@@ -197,15 +197,15 @@ title_x <- ggplot() + theme_void() +
        subtitle = paste0(
          "A real step up from Sonnet 4.6, but it stays behind Anthropic's own **Opus 4.8**, and an ",
          "**open-weight, 3× cheaper** model (Zhipu's **GLM 5.2**) matches it on agentic coding.")) +
-  theme(plot.title = element_markdown(family = "Inter Black", size = 21, color = pal$ink,
+  theme(plot.title = element_markdown(family = "BenchSans Black", size = 21, color = pal$ink,
                                       lineheight = 1.02, margin = margin(b = 5)),
-        plot.subtitle = element_textbox_simple(family = "Inter", size = 11, color = pal$subink,
+        plot.subtitle = element_textbox_simple(family = "BenchSans", size = 11, color = pal$subink,
                                                lineheight = 1.32, width = unit(1, "npc")),
         plot.margin = margin(4, 10, 2, 10))
 
 caption_x <- ggplot() + theme_void() +
   labs(title = "<span style='color:#8a8178'>Sources: Anthropic Sonnet 5 system card & news, Z.ai GLM 5.2 card, Artificial Analysis Index v4.1, Semgrep, llm-stats. Independent figures used where vendor self-reports differ. Built with R and the tidyverse.</span>") +
-  theme(plot.title = element_textbox_simple(family = "Inter", size = 7.4, lineheight = 1.3,
+  theme(plot.title = element_textbox_simple(family = "BenchSans", size = 7.4, lineheight = 1.3,
                                             width = unit(1, "npc"), margin = margin(t = 3)),
         plot.margin = margin(2, 10, 4, 10))
 
@@ -215,5 +215,5 @@ final_x <- title_x / pAx / (pBx | pCx) / pDx / caption_x +
                                 plot.margin = margin(14, 14, 8, 14)))
 
 ggsave("plots/sonnet5_vs_glm52_x.png", final_x, width = 9, height = 11.25, dpi = 180,
-       bg = pal$paper, limitsize = FALSE)
+       bg = pal$paper, limitsize = FALSE, device = ragg::agg_png)
 message("Wrote plots/sonnet5_vs_glm52_x.png (4:5 for X)")
