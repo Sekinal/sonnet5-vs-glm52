@@ -73,7 +73,7 @@ pB <- ggplot(pr, aes(output_price_per_mtok, model, fill = model)) +
   geom_text(aes(label = label_dollar(accuracy = 0.01)(output_price_per_mtok)), hjust = -0.22,
             family = "BenchSans Black", size = 3.9, color = pal$ink) +
   annotate("richtext", x = 10, y = 1.05,
-           label = "<span style='color:#1B9E8A'>**GLM 5.2**</span> is 2.3 to 3.4x cheaper per token<br>than Sonnet 5, at **every** effort level",
+           label = "<span style='color:#1B9E8A'>**GLM 5.2**</span>'s per-token price is<br>**2.3 to 3.4x** cheaper than Sonnet 5's",
            family = "BenchSans", size = 3.0, color = pal$subink, fill = NA, label.color = NA,
            hjust = 0, lineheight = 1.12) +
   scale_fill_manual(values = mc) +
@@ -93,7 +93,7 @@ title_block <- ggplot() + theme_void() +
   labs(title = "Dialing Sonnet 5 down never beats GLM 5.2",
        subtitle = paste0(
          "Reasoning effort changes how many tokens a model spends, not its price per token. <span style='color:#D6603D'>**Sonnet 5**</span> stays **2.3 to 3.4x** ",
-         "pricier per token than <span style='color:#1B9E8A'>**GLM 5.2**</span> at every setting, so Sonnet can only get cheaper than GLM by also dropping **below** GLM's intelligence. No effort level gives it cheaper-and-as-smart.")) +
+         "pricier per token than <span style='color:#1B9E8A'>**GLM 5.2**</span> whatever the effort, so Sonnet can only get cheaper than GLM by also dropping **below** GLM's intelligence. No effort setting gives it cheaper-and-as-smart.")) +
   theme(plot.title = element_markdown(family = "BenchSans Black", size = 23, color = pal$ink,
                                       lineheight = 1.05, margin = margin(b = 7)),
         plot.subtitle = element_textbox_simple(family = "BenchSans", size = 11.5, color = pal$subink,
@@ -114,3 +114,9 @@ final <- title_block / pA / pB / caption_block +
 ggsave("plots/thinking_levels.png", final, width = 9, height = 11.25, dpi = 200,
        bg = pal$paper, limitsize = FALSE, device = ragg::agg_png)
 message("Wrote plots/thinking_levels.png")
+
+# Standalone, high-resolution render of just the intelligence-vs-cost panel.
+pA_solo <- pA + theme(plot.margin = margin(20, 24, 16, 18))
+ggsave("plots/intelligence_vs_cost.png", pA_solo, width = 12, height = 7.4, dpi = 360,
+       bg = pal$paper, limitsize = FALSE, device = ragg::agg_png)
+message("Wrote plots/intelligence_vs_cost.png")

@@ -97,6 +97,7 @@ plots/
   sonnet5_vs_glm52_x.png # 4:5 version sized for X
   token_economics.png    # deeper: verbosity vs intelligence vs TRUE cost (value frontier)
   thinking_levels.png    # deeper: intelligence & cost across reasoning effort, GLM included
+  intelligence_vs_cost.png # standalone high-res (4320x2664) of the value-scatter panel
 scripts/
   theme_bench.R    # shared visual identity (Inter font, palette, theme)
   make_plot.R      # builds the headline infographic
